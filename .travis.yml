@@ -2,7 +2,14 @@ language: php
 
 php: 
   - 5.5.9
-
+  
+  
+#build to build
+branches:
+  only:
+    - master
+    - stable
+	
 before_script:
   #create environment file
   - cp ./.env.example ./.env 
