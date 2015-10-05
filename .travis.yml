@@ -2,9 +2,9 @@ language: php
 
 php: 
   - 5.5.9
+  - 6.0
   
-  
-#build to build
+#branches to build
 branches:
   only:
     - master
