@@ -1,8 +1,11 @@
 language: php
 
-php: 
+php:
   - 5.5.9
-  - 6.0
+  - 5.5
+  - 5.6
+  - 7.0
+  - hhvm
   
 #branches to build
 branches:
