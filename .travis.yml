@@ -59,19 +59,20 @@ before_script:
 
 script:
   ## PHP_CodeSniffer
-  - $HOME/.composer/vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=$HOME/.composer/vendor/pragmarx/laravelcs/Standards/Laravel/ . --ignore=vendor/*
+  - $HOME/.composer/vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=$HOME/.composer/vendor/pragmarx/laravelcs/Standards/Laravel/ app/
   ## PHP Copy/Paste Detector in folder "app"
   - php phpcpd.phar --verbose app/
   ## PHP Mess Detector
-  - phpmd . text cleancode --exclude vendor
-  - phpmd . text codesize --exclude vendor
-  - phpmd . text controversial --exclude vendor
-  - phpmd . text design --exclude vendor
-  - phpmd . text naming --exclude vendor
-  - phpmd . text unusedcode --exclude vendor
+  - phpmd app text cleancode 
+  - phpmd app text codesize 
+  - phpmd app text controversial 
+  - phpmd app text design 
+  - phpmd app text naming 
+  - phpmd app text unusedcode 
   ## PHPLOC
   - php phploc.phar . --exclude vendor
   ## PHPUNIT
   - phpunit
   ## LINT
-  - find ./ -type f -name \*.php -exec php -l {} \;
+  - find ./ -type f -name \*.php -exec php -l {} \;|grep -v 'No syntax error'
+
