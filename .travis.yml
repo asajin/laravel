@@ -15,7 +15,7 @@ php:
   - 5.5
   - 5.6
   - 7.0
-  - hhvm
+  #- hhvm
 
 # configure which branches to run
 branches:
@@ -31,9 +31,12 @@ branches:
 ## begin build steps
 ####################
 before_script:
-  ## PHP_CodeSniffer
-  - pear install pear/PHP_CodeSniffer
+  #Rehash php version
   - phpenv rehash
+  #Install latest composer
+  - curl -s http://getcomposer.org/installer | php
+  ## PHP_CodeSniffer
+  - php composer.phar global require pragmarx/laravelcs
   ## PHP Copy/Paste Detector
   - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
   ## PHP Mess Detector
@@ -47,20 +50,18 @@ before_script:
   - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
   #create environment file
   - cp ./.env.example ./.env
-  #Install latest composer
-  - curl -s http://getcomposer.org/installer | php
   #Install Project
   - php composer.phar install
   #generate Application key
   - php artisan key:generate
 
   
-#Unit testing  
+
 script:
   ## PHP_CodeSniffer
-  - phpcs --report=emacs --standard=PSR2 . --ignore=vendor/*
-  ## PHP Copy/Paste Detector
-  - php phpcpd.phar --verbose .
+  - $HOME/.composer/vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=$HOME/.composer/vendor/pragmarx/laravelcs/Standards/Laravel/ . --ignore=vendor/*
+  ## PHP Copy/Paste Detector in folder "app"
+  - php phpcpd.phar --verbose app/
   ## PHP Mess Detector
   - phpmd . text cleancode --exclude vendor
   - phpmd . text codesize --exclude vendor
