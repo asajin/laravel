@@ -7,15 +7,11 @@ php:
   - 7.0
   - hhvm
   
-	
+#create environment file, Install latest composer, Install project, generate Application key
 before_script:
-  #create environment file
   - cp ./.env.example ./.env 
-  # Install latest composer
   - curl -s http://getcomposer.org/installer | php
-  #Install Project
   - php composer.phar install
-  #generate Application key
   - php artisan key:generate 
 
 script: phpunit
