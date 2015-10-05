@@ -4,11 +4,10 @@ notifications:
     recipients:
       - lukacsbarni@gmail.com
       - blukacs@pentalog.fr
-
-    # change is when the repo status goes from pass to fail or vice versa
+    #change is when the repo status goes from pass to fail or vice versa
     on_success: change
     on_failure: always
-	
+
 # specify language
 language: php
 
@@ -34,16 +33,16 @@ branches:
 ## begin build steps
 ####################
 before_script:
-  - cp ./.env.example ./.env
   #create environment file
-  - curl -s http://getcomposer.org/installer | php
+  - cp ./.env.example ./.env
   #Install latest composer
+  - curl -s http://getcomposer.org/installer | php
+  #Install Project
   - php composer.phar install
-  #Install project
-  - php artisan key:generate 
-  generate Application key
+  #generate Application key
+  - php artisan key:generate
+  - echo "MVN version"
   - mvn -version
   
 #Unit testing  
 script: phpunit
-
