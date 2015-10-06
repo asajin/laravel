@@ -7,6 +7,8 @@ php:
 before_script:
  - wget http://getcomposer.org/composer.phar
  - php composer.phar install
+ #create environment file
+ - cp ./.env.example ./.env
  #generate Application key
  - php artisan key:generate
 
