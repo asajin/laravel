@@ -38,11 +38,11 @@ script:
  - vendor/bin/phpcpd --verbose app/
  
  # Run PHP Mess Detector in folder "app"
- #- phpmd app text cleancode 
+ #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/cleancode.xml
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml	 
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/design.xml
- - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml
+ #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml
 
 after_script:
