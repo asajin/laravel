@@ -35,15 +35,15 @@ script:
  #- vendor/bin/phpcs --standard=vendor/pragmarx/laravelcs/Standards/Laravel/ app/
  
  #Run PHP Copy/Paste Detector in folder "app"
- - php phpcpd.phar --verbose app/
+ - vendor/bin/phpcpd --verbose app/
  
  # Run PHP Mess Detector in folder "app"
  #- phpmd app text cleancode 
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml	 
- - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml/controversial.xml
- - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml/design.xml
- - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml/naming.xml
- - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml/unusedcode.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/design.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml
 
 after_script:
  - php vendor/bin/coveralls -v
