@@ -21,6 +21,9 @@ before_script:
  #Install PHP Mess  Detector, https://github.com/phpmd/phpmd
  - php composer.phar require "phpmd/phpmd:@stable"
  
+ #Install PHPLOC 
+ - php composer.phar require "phploc/phploc=*"
+ 
  #create environment file
  - cp ./.env.example ./.env
  #generate Application key
@@ -44,6 +47,12 @@ script:
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/design.xml
  #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml
-
+ 
+ #Run PHPLoc for folder "app"
+ - vendor/phploc/phploc/phploc app/ --log-xml=build/logs/phploc.xml
+ 
+ #Run LINT 
+ - find app/ -type f -name \*.php -exec php -l {} \;|grep -v 'No syntax error'
+ 
 after_script:
  - php vendor/bin/coveralls -v
