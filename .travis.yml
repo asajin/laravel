@@ -5,16 +5,28 @@ php:
   - 5.6
 
 before_script:
- - wget http://getcomposer.org/composer.phar
+ #Download and install latest composer
+ - curl -s http://getcomposer.org/installer | php
  - php composer.phar install
+ 
+ #Install Code Coverage, https://github.com/satooshi/php-coveralls
+ - php composer.phar require satooshi/php-coveralls:dev-master
+ 
+ #Install PHP CodeSniffer for Laravel, https://github.com/antonioribeiro/laravelcs
+ - php composer.phar require pragmarx/laravelcs
+ 
  #create environment file
  - cp ./.env.example ./.env
  #generate Application key
  - php artisan key:generate
 
 script:
+ #PHPUnit with Coverage
  - mkdir -p build/logs
  - phpunit --coverage-clover build/logs/clover.xml
+ 
+ ## Run PHP CodeSniffer for Laravel
+ - phpcs --standard=vendor/pragmarx/laravelcs/Standards/Laravel/ app/
 
 after_script:
  - php vendor/bin/coveralls -v
