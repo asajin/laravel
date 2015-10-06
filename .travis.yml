@@ -1,84 +1,16 @@
-# Set up notification options
-notifications: 
-  email:
-    recipients:
-      - lukacsbarni@gmail.com
-      - blukacs@pentalog.fr
-    #change is when the repo status goes from pass to fail or vice versa
-    on_success: change
-    on_failure: always
-
-# specify language
 language: php
 
 php:
   - 5.5
   - 5.6
-  #- 7.0
-  #- hhvm
 
-# configure which branches to run
-branches:
-  # whitelist
-  only:
-    - master
-    - /^deploy-.*$/ # regex ok
-  # blacklist
-  except:
-    - preprod 
-    - test  
-
-## begin build steps
-####################
 before_script:
-  #Rehash php version
-  - phpenv rehash
-  #Install latest composer
-  - curl -s http://getcomposer.org/installer | php
-  ## PHP_CodeSniffer
-  - php composer.phar global require pragmarx/laravelcs
-  ## PHP Copy/Paste Detector
-  - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
-  ## PHP Mess Detector
-  - pear config-set preferred_state beta
-  - printf "\n" | pecl install imagick
-  - pear channel-discover pear.phpmd.org
-  - pear channel-discover pear.pdepend.org
-  - pear install --alldeps phpmd/PHP_PMD
-  - phpenv rehash
-  ## PHPLOC
-  - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
-  #create environment file
-  - cp ./.env.example ./.env
-  #Install Project
-  - php composer.phar install
-  #generate Application key
-  - php artisan key:generate
-  #Install php Coveralls
-  - php composer.phar update satooshi/php-coveralls --dev
-  - mkdir -p build/logs
-  
+ - wget http://getcomposer.org/composer.phar
+ - php composer.phar install --dev --no-interaction
 
 script:
-  ## PHP_CodeSniffer
-  #- $HOME/.composer/vendor/squizlabs/php_codesniffer/scripts/phpcs --standard=$HOME/.composer/vendor/pragmarx/laravelcs/Standards/Laravel/ app/
-  ## PHP Copy/Paste Detector in folder "app"
-  - php phpcpd.phar --verbose app/
-  ## PHP Mess Detector
-  #- phpmd app text cleancode 
-  - phpmd app text codesize 
-  - phpmd app text controversial 
-  - phpmd app text design 
-  - phpmd app text naming 
-  - phpmd app text unusedcode 
-  ## PHPLOC
-  - php phploc.phar . --exclude vendor
-  ## PHPUNIT
-  #- phpunit
-  ## LINT
-  - find ./ -type f -name \*.php -exec php -l {} \;|grep -v 'No syntax error'
-  #Coverage
-  - phpunit --coverage-clover build/logs/clover.xml
+ - mkdir -p build/logs
+ - phpunit --coverage-clover build/logs/clover.xml
 
-after_success:
-  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php vendor/bin/coveralls -v; fi;'
+after_script:
+ - php vendor/bin/coveralls -v
