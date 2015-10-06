@@ -39,11 +39,11 @@ script:
  
  # Run PHP Mess Detector in folder "app"
  #- phpmd app text cleancode 
- - phpmd app text codesize 
- - phpmd app text controversial 
- - phpmd app text design 
- - phpmd app text naming 
- - phpmd app text unusedcode 
+ - vendor/bin/phpmd app text codesize 
+ - vendor/bin/phpmd app text controversial 
+ - vendor/bin/phpmd app text design 
+ - vendor/bin/phpmd app text naming 
+ - vendor/bin/phpmd app text unusedcode 
 
 after_script:
  - php vendor/bin/coveralls -v
