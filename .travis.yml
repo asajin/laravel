@@ -52,7 +52,7 @@ script:
  - vendor/phploc/phploc/phploc app/ --log-xml=build/logs/phploc.xml
  
  #Run LINT 
- - find app/ -type f -name \*.php -exec php -l {} \;|grep -v 'No syntax error'
+ #- find ./ -type f -name \*.php -exec php -l {} \;|grep -v 'No syntax error'
  
 after_script:
  - php vendor/bin/coveralls -v
