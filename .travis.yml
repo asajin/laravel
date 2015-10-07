@@ -2,7 +2,7 @@ language: php
 
 php:
   - 5.5
-  #- 5.6
+  - 5.6
 
 before_install:
  #decrypt privat key
@@ -16,19 +16,19 @@ before_script:
  - php composer.phar install
  
  #Install Code Coverage, https://github.com/satooshi/php-coveralls
- #- php composer.phar require "satooshi/php-coveralls:dev-master"
+ - php composer.phar require "satooshi/php-coveralls:dev-master"
  
  #Install PHP CodeSniffer for Laravel, https://github.com/antonioribeiro/laravelcs
- #- php composer.phar require "pragmarx/laravelcs"
+ - php composer.phar require "pragmarx/laravelcs"
  
  #Install PHP Copy/Paste Detector, https://github.com/sebastianbergmann/phpcpd
- #- php composer.phar require "sebastian/phpcpd=*"
+ - php composer.phar require "sebastian/phpcpd=*"
  
  #Install PHP Mess  Detector, https://github.com/phpmd/phpmd
- #- php composer.phar require "phpmd/phpmd:@stable"
+ - php composer.phar require "phpmd/phpmd:@stable"
  
  #Install PHPLOC 
- #- php composer.phar require "phploc/phploc=*"
+ - php composer.phar require "phploc/phploc=*"
  
  #create environment file
  - cp ./.env.example ./.env
@@ -41,24 +41,24 @@ script:
  - phpunit --coverage-clover build/logs/clover.xml
  
  #Run PHP CodeSniffer for Laravel
- #- vendor/bin/phpcs --standard=vendor/pragmarx/laravelcs/Standards/Laravel/ app/
+ - vendor/bin/phpcs --standard=vendor/pragmarx/laravelcs/Standards/Laravel/ app/
  
  #Run PHP Copy/Paste Detector in folder "app"
- #- vendor/bin/phpcpd --verbose app/
+ - vendor/bin/phpcpd --verbose app/
  
  # Run PHP Mess Detector in folder "app"
- #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/cleancode.xml
- #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml	 
- #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml
- #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/design.xml
- #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml
- #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/cleancode.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml	 
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/design.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml
+ - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml
  
  #Run PHPLoc for folder "app"
- #- vendor/phploc/phploc/phploc app/ --log-xml=build/logs/phploc.xml
+ - vendor/phploc/phploc/phploc app/ --log-xml=build/logs/phploc.xml
  
  #Run LINT 
- #- find ./ -type f -name \*.php -exec php -l {} \;|grep -v 'No syntax error'
+ - find ./app/ -type f -name \*.php -exec php -l {} \;|grep -v 'No syntax error'
  
 after_script:
  - php vendor/bin/coveralls -v
@@ -68,8 +68,3 @@ after_success:
  - chmod 600 deploy_key
  - mv deploy_key ~/.ssh/id_rsa
  - ssh $deploy_user@$deploy_ip -i ~/.ssh/id_rsa "touch test; exit"
-#deploy:
-#    provider: script
-#    script: scripts/deploy.sh
-#    on:
-#        branch: master
