@@ -58,8 +58,8 @@ after_script:
  - php vendor/bin/coveralls -v
  
 
-deploy:
-    provider: script
-    script: scripts/deploy.sh
-    on:
-        branch: master
+#deploy:
+#    provider: script
+#    script: scripts/deploy.sh
+#    on:
+#        branch: master
