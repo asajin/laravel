@@ -62,8 +62,8 @@ after_script:
  
 
 after_success:
- - chmod 600 deploy-key
- - mv deploy-key ~/.ssh/id_rsa
+ - chmod 600 deploy_key
+ - mv deploy_key ~/.ssh/id_rsa
  - ssh "$deploy_user"@"$deploy_ip" -i ~/.ssh/id_rsa "echo "test; exit"
 #deploy:
 #    provider: script
