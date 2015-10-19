@@ -55,7 +55,7 @@ script:
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml
  - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/design.xml
  #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/naming.xml
- - vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml
+ #- vendor/bin/phpmd app/ text vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml
  
  #Run PHPLoc for folder "app"
  - vendor/phploc/phploc/phploc app/ --log-xml=build/logs/phploc.xml
@@ -72,3 +72,6 @@ after_success:
  - mv deploy_key ~/.ssh/id_rsa
 # - ssh $deploy_user@$deploy_ip -i ~/.ssh/id_rsa "touch test; exit"
  
+notifications:
+  slack: p5-demo:HDsDGWG5lvSKqWhcw6J0jgWH
+  
